@@ -30,52 +30,73 @@ namespace ScreenshareHelper
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.buttonSetCaptureArea = new System.Windows.Forms.Button();
             this.buttonCloseApp = new System.Windows.Forms.Button();
+            this.panelButtons = new System.Windows.Forms.Panel();
+            this.buttonHide = new System.Windows.Forms.Button();
+            this.panelButtons.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonSetCaptureArea
-            // 
-            this.buttonSetCaptureArea.Location = new System.Drawing.Point(12, 12);
-            this.buttonSetCaptureArea.Name = "buttonSetCaptureArea";
-            this.buttonSetCaptureArea.Size = new System.Drawing.Size(94, 29);
-            this.buttonSetCaptureArea.TabIndex = 1;
-            this.buttonSetCaptureArea.Text = "Set";
-            this.buttonSetCaptureArea.UseVisualStyleBackColor = true;
-            this.buttonSetCaptureArea.Click += new System.EventHandler(this.buttonSetCaptureArea_Click);
             // 
             // buttonCloseApp
             // 
-            this.buttonCloseApp.Location = new System.Drawing.Point(112, 12);
+            this.buttonCloseApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCloseApp.Location = new System.Drawing.Point(566, 2);
+            this.buttonCloseApp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCloseApp.Name = "buttonCloseApp";
-            this.buttonCloseApp.Size = new System.Drawing.Size(94, 29);
+            this.buttonCloseApp.Size = new System.Drawing.Size(121, 46);
             this.buttonCloseApp.TabIndex = 1;
             this.buttonCloseApp.Text = "Close App";
-            this.buttonCloseApp.UseVisualStyleBackColor = true;
+            this.buttonCloseApp.UseVisualStyleBackColor = false;
             this.buttonCloseApp.Click += new System.EventHandler(this.buttonCloseApp_Click);
+            // 
+            // panelButtons
+            // 
+            this.panelButtons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelButtons.BackColor = System.Drawing.Color.White;
+            this.panelButtons.Controls.Add(this.buttonCloseApp);
+            this.panelButtons.Controls.Add(this.buttonHide);
+            this.panelButtons.Location = new System.Drawing.Point(5, 0);
+            this.panelButtons.Margin = new System.Windows.Forms.Padding(0);
+            this.panelButtons.Name = "panelButtons";
+            this.panelButtons.Size = new System.Drawing.Size(690, 333);
+            this.panelButtons.TabIndex = 2;
+            // 
+            // buttonHide
+            // 
+            this.buttonHide.Location = new System.Drawing.Point(3, 2);
+            this.buttonHide.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonHide.Name = "buttonHide";
+            this.buttonHide.Size = new System.Drawing.Size(115, 46);
+            this.buttonHide.TabIndex = 1;
+            this.buttonHide.Text = "Start / Hide";
+            this.buttonHide.UseVisualStyleBackColor = true;
+            this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonCloseApp);
-            this.Controls.Add(this.buttonSetCaptureArea);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.Controls.Add(this.panelButtons);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "ScreensharingHelper";
+            this.Text = "Screensharing Helper";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonSetCaptureArea;
         private System.Windows.Forms.Button buttonCloseApp;
+        private System.Windows.Forms.Panel panelButtons;
+        private System.Windows.Forms.Button buttonHide;
     }
 }
 
