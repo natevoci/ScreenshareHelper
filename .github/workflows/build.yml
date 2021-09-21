@@ -18,27 +18,39 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --configuration Release --no-restore
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
     - name: Publish application
-      run: dotnet publish -c Release -o Publish
+      run: dotnet publish -c Release -o ./Publish
+
     - name: Zip Release
       uses: thedoctor0/zip-release@master
       with:
         type: 'zip'
-        filename: 'ScreenshareHelper.zip'
-        path: 'Publish'
+        filename: 'ScreenshareHelper-release.zip'
+        directory: './src/Publish'
         exclusions: '*.deps.json *.pdb'
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
+
+    - name: Upload Release
+      uses: ncipollo/release-action@v1
       with:
-       name: my-artifact
-       path: 'ScreenshareHelper.zip'
+        name: Release ${{ github.ref }}
+        tag: ${{ github.ref }}Build
+        commit: ${{ github.ref }}
+        allowUpdates: true
+        prerelease: false
+        artifacts: './src/Publish/ScreenshareHelper-release.zip'
+        token: ${{ secrets.GITHUB_TOKEN }}
