@@ -5,6 +5,8 @@
 
 Screenshare Helper is a small tool to allow sharing of a portion of your screen in Microsoft Teams (and possibly other meeting apps, but that's untested). This is particularly beneficial for people with 4K monitors. When sharing the screen people with smaller displays can't read anything because it scaled down too small.
 
+5 minute demo video https://www.youtube.com/watch?v=R-kB7jNtoSA
+
 ## Prerequisites
 This tool is built on .net 5 windows forms. You may need to install the [.net 5 runtime](https://dotnet.microsoft.com/download/dotnet/5.0).
 
