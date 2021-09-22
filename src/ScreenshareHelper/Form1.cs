@@ -156,14 +156,6 @@ namespace ScreenshareHelper
                 e.Graphics.FillRectangle(OUTLINE_COLOR, this.Width - OUTLINE_THICKNESS, 0, OUTLINE_THICKNESS, this.Height);
             }
         }
-
-        protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);
-
-            System.Diagnostics.Debug.WriteLine($"{m}");
-        }
-
         #endregion
 
         #region Bounds
@@ -253,6 +245,9 @@ namespace ScreenshareHelper
             this.TopMost = true;
 
             _isHidden = true;
+
+            // Unfocus this window by focussing the shell window.
+            Win32.SetForegroundWindow(Win32.GetShellWindow());
         }
 
         private static void SetTransparency(IntPtr handle, byte alpha)

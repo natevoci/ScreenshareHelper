@@ -143,6 +143,13 @@ namespace ScreenshareHelper
         [DllImport("user32.dll")]
         public static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetShellWindow();
+
+        [DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+
         #region Cursor
         [StructLayout(LayoutKind.Sequential)]
         public struct CURSORINFO
