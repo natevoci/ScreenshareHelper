@@ -81,9 +81,9 @@ namespace ScreenshareHelper
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 280);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 25);
+            this.label2.Size = new System.Drawing.Size(38, 25);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Tips";
+            this.label2.Text = "Tip";
             // 
             // label5
             // 
@@ -115,11 +115,11 @@ namespace ScreenshareHelper
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(34, 232);
+            this.label6.Location = new System.Drawing.Point(55, 232);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(571, 25);
+            this.label6.Size = new System.Drawing.Size(552, 25);
             this.label6.TabIndex = 2;
-            this.label6.Text = "4. To Unhide, select \"Screensharing Helper\" in the windows taskbar";
+            this.label6.Text = "To Unhide, select \"Screensharing Helper\" in the windows taskbar";
             // 
             // label3
             // 

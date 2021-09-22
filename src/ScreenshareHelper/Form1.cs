@@ -31,8 +31,18 @@ namespace ScreenshareHelper
 
             this.FormBorderStyle = FormBorderStyle.None;//update CreateParams
 
-            this.MouseDown += Form1_MouseDown;
-            this.panelButtons.MouseDown += Form1_MouseDown;
+            if (!this.DesignMode)
+            {
+                this.MouseDown += Form1_MouseDown;
+                this.panelButtons.MouseDown += Form1_MouseDown;
+                foreach (Control control in panelButtons.Controls)
+                {
+                    if (control is Label)
+                    {
+                        control.MouseDown += Form1_MouseDown;
+                    }
+                }
+            }
 
             SetTransparency(this.Handle, VISIBLE_TRANSPARENCY);
 
