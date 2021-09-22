@@ -44,12 +44,16 @@ jobs:
         directory: './src/Publish'
         exclusions: '*.deps.json *.pdb'
 
+    - name: Create or Update tag
+      run: |
+        git tag -f ${{ github.ref }}Build
+        git push -f origin ${{ github.ref }}Build
+
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
         name: Release ${{ github.ref }}
         tag: ${{ github.ref }}Build
-        commit: ${{ github.ref }}
         allowUpdates: true
         prerelease: false
         artifacts: './src/Publish/ScreenshareHelper-release.zip'
