@@ -88,6 +88,7 @@ namespace ScreenshareHelper
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Move += new System.EventHandler(this.Form1_Move);
             this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 

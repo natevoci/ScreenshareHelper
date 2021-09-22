@@ -109,6 +109,14 @@ namespace ScreenshareHelper
             }
         }
 
+        private void Form1_Move(object sender, EventArgs e)
+        {
+            if (!_isHidden)
+            {
+                SaveWindowPosition();
+            }
+        }
+
         private void Form1_Resize(object sender, EventArgs e)
         {
             if (!_isHidden)
