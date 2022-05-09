@@ -15,6 +15,9 @@ jobs:
       run:
         working-directory: ./src
 
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -44,17 +47,37 @@ jobs:
         directory: './src/Publish'
         exclusions: '*.deps.json *.pdb'
 
+    - uses: bhowell2/github-substring-action@master
+      id: get-branch-name
+      with:
+        value: ${{github.ref}}
+        index_of_str: "refs/heads/"
+
     - name: Create or Update tag
       run: |
-        git tag -f ${{ github.ref }}Build
-        git push -f origin ${{ github.ref }}Build
+        git tag -f ${{steps.get-branch-name.outputs.substring}}Build
+        git push -f origin ${{steps.get-branch-name.outputs.substring}}Build
+
+    - name: List files
+      run: |
+        Get-ChildItem -Recurse
+
+    - name: Archive everything
+      uses: actions/upload-artifact@v3
+      with:
+        name: Everything
+        path: .
 
     - name: Upload Release
-      uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@main
       with:
-        name: Release ${{ github.ref }}
-        tag: ${{ github.ref }}Build
+        name: Release ${{steps.get-branch-name.outputs.substring}}
+        tag: ${{steps.get-branch-name.outputs.substring}}Build
         allowUpdates: true
         prerelease: false
-        artifacts: './src/Publish/ScreenshareHelper-release.zip'
+        removeArtifacts: true
+        replacesArtifacts: true
+        artifactErrorsFailBuild: true
+        artifacts: ./src/Publish/ScreenshareHelper-release.zip
+        artifactContentType: application/zip
         token: ${{ secrets.GITHUB_TOKEN }}
