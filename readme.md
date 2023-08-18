@@ -12,7 +12,7 @@ This tool is built on .net 5 windows forms. You may need to install the [.net 5 
 
 ## Download
 
-A zip of the latest master branch is automatically built and can be downloaded from the [latest release](releases/latest) page.
+The installer can be downloaded from the [releases](releases/latest) page.
 
 ## How to use the tool?
 1. Start ScreenshareHelper.exe

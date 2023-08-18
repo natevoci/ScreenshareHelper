@@ -2,18 +2,12 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    tags:
+      - '**'
 
 jobs:
   build:
-
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: ./src
 
     permissions:
       contents: write
@@ -27,18 +21,52 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
+    # Load version number from tag
+    - uses: bhowell2/github-substring-action@master
+      id: branch-name
+      with:
+        value: ${{github.ref}}
+        index_of_str: "refs/tags/"
+
+    # Replace version number
+    - name: Replace version number
+      uses: thiagodnf/string-replacer@v1.0.2
+      with:
+        find: <Version>1.0.0</Version>
+        replace: <Version>${{steps.branch-name.outputs.substring}}</Version>
+        include: src/ScreenshareHelper/ScreenshareHelper.csproj
+
+    # Build solution
     - name: Restore dependencies
-      run: dotnet restore
-
+      run: |
+        cd src
+        dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
-
+      run: |
+        cd src
+        dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-
+      run: |
+        cd src
+        dotnet test --no-build --verbosity normal
     - name: Publish application
-      run: dotnet publish -c Release -o ./Publish
+      run: |
+        cd src
+        dotnet publish -c Release -o ./Publish
 
+    # Build installer
+    - name: Create nsis installer
+      uses: joncloud/makensis-action@publish
+      with:
+        script-file: installer.nsi
+    - name: Rename installer
+      run: mv ScreenshareHelperInstaller.exe ScreenshareHelperInstaller-${{steps.branch-name.outputs.substring}}.exe
+
+    - name: List files
+      run: |
+        Get-ChildItem -Recurse
+
+    # Create Zip
     - name: Zip Release
       uses: thedoctor0/zip-release@master
       with:
@@ -47,37 +75,19 @@ jobs:
         directory: './src/Publish'
         exclusions: '*.deps.json *.pdb'
 
-    - uses: bhowell2/github-substring-action@master
-      id: get-branch-name
-      with:
-        value: ${{github.ref}}
-        index_of_str: "refs/heads/"
-
-    - name: Create or Update tag
-      run: |
-        git tag -f ${{steps.get-branch-name.outputs.substring}}Build
-        git push -f origin ${{steps.get-branch-name.outputs.substring}}Build
-
     - name: List files
       run: |
         Get-ChildItem -Recurse
 
-    - name: Archive everything
-      uses: actions/upload-artifact@v3
-      with:
-        name: Everything
-        path: .
-
+    # Create Release
     - name: Upload Release
       uses: ncipollo/release-action@main
       with:
-        name: Release ${{steps.get-branch-name.outputs.substring}}
-        tag: ${{steps.get-branch-name.outputs.substring}}Build
+        name: Release ${{steps.branch-name.outputs.substring}}
         allowUpdates: true
         prerelease: false
         removeArtifacts: true
         replacesArtifacts: true
         artifactErrorsFailBuild: true
-        artifacts: ./src/Publish/ScreenshareHelper-release.zip
-        artifactContentType: application/zip
+        artifacts: "ScreenshareHelperInstaller-${{steps.branch-name.outputs.substring}}.exe,src/Publish/ScreenshareHelper-release.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
